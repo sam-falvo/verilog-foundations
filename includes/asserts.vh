@@ -20,7 +20,7 @@
 	input [``msb``:0] expected;\
 	begin\
 		if(expected !== ``name``_``suffix``) begin\
-			$display("@E %03X %s Expected %X, got %X", story_tb, `NTB(name,suffix), expected, ``name``_``suffix``);\
+			$display("@E %03X %s Expected %X, got %X", story_to, `NTB(name,suffix), expected, ``name``_``suffix``);\
 			$stop;\
 		end\
 	end\
@@ -41,7 +41,7 @@
 	input expected;\
 	begin\
 		if(expected !== ``name``_``suffix``) begin\
-			$display("@E %03X %s Expected %X, got %X", story_tb, `NTB(name,suffix), expected, ``name``_``suffix``);\
+			$display("@E %03X %s Expected %X, got %X", story_to, `NTB(name,suffix), expected, ``name``_``suffix``);\
 			$stop;\
 		end\
 	end\

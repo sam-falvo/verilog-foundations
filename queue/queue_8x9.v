@@ -1,25 +1,31 @@
 `timescale 1ns / 1ps
 
 module queue_8x9(
-	input		clk,
-	input		reset,
-	input		nchar,
-	input		lchar,
-	input	[7:0]	char_i,
-	input		stb_i,
-	output		ack_o,
-	output	[8:0]	dat_o,
-	output		full_o,
-	output		empty_o,
+	input			clk,
+	input			reset,
+	input			nchar,
+	input			lchar,
+	input	[DHB:0]		char_i,
+	input			stb_i,
+	output			ack_o,
+	output	[DHB+1:0]	dat_o,
+	output			full_o,
+	output			empty_o,
 
-	output	[7:0]	occupied_tb,	// TEST BENCH ONLY
-	output	[2:0]	rp_tb,
-	output	[2:0]	wp_tb,
-	output		we_tb
+	output	[DHB:0]		occupied_tb,	// TEST BENCH ONLY
+	output	[PHB:0]		rp_tb,
+	output	[PHB:0]		wp_tb,
+	output			we_tb
 );
-	reg [8:0] queue[0:7];
-	reg [7:0] occupied;	// Which slots hold valid data?
-	reg [2:0] rp, wp;	// Counters indicating next slot to read, write.
+	parameter PTR_BITS = 3;
+	parameter DATA_WIDTH = 1 << PTR_BITS;
+
+	parameter PHB = PTR_BITS - 1;
+	parameter DHB = DATA_WIDTH - 1;
+
+	reg [DHB+1:0] queue[0:7];
+	reg [DHB:0] occupied;	// Which slots hold valid data?
+	reg [PHB:0] rp, wp;	// Counters indicating next slot to read, write.
 	reg oe_r;
 
 	assign ack_o = oe_r;

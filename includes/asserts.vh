@@ -48,7 +48,7 @@
 	endtask
 
 // Create a pair of tasks which assert or negate a specified signal.
-// Example: DEFIO(clk, l, h)
+// Example: DEFIO(clk, _l, _h)
 // Effects: Creates two tasks, clk_l() and clk_h(), which effects a register
 //          named clk to be either 0 or 1, respectively.
 

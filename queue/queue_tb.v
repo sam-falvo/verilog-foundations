@@ -289,6 +289,11 @@ module queue_tb();
 		assert_dat(255);
 		assert_empty(1);
 		assert_full(0);
+
+		// (after writing the 8th item to the queue,
+		// we should wrap around, and see the first
+		// of the overwrites.)
+
 		tick;
 		assert_room(8);
 		assert_wp(0);
@@ -296,10 +301,6 @@ module queue_tb();
 		assert_dat(8'hAA);
 		assert_empty(1);
 		assert_full(0);
-
-		// (after writing the 8th item to the queue,
-		// we should wrap around, and see the first
-		// of the overwrites.)
 
 		$display("@I Done.");
 		$stop;

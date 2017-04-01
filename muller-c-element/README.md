@@ -35,5 +35,27 @@ an asynchronous pipeline can be constructed using these gates in a configuration
 
 This circuit took me quite a bit of time to feel comfortable with,
 but I think I finally understand it now.
-I'll document how the circuit works later, as I need to head out of the office now.  :)
+
+Let `d0` and `q0` represent a "data valid" signal of some kind.
+Each stage is shown without any kind of data processing of any kind for simplicity.
+
+We first assume all outputs are low (except for inverters, which are high).
+When `d0` is asserted, C(n-1) output goes high as well (since A, B = 1, 1).
+This causes C(n) to go high almost right away.
+Its inverter causes C(n-1) to latch in the high state until `d0` is brought low again.
+(The assertion of `ack` could be a trigger for this to happen.)
+When it does, stage N-1 is once again in a quiescent state, ready for another batch of processing.
+Meanwhile, this cycle repeats between stages N and N+1.
+
+What happens with `q0` though?
+Presumably this has to terminate at some kind of (potentially synchronous) endpoint function.
+When `q0` goes high, the function is notified that data exists and is ready for processing.
+However, it might not assert `ack` right away (in fact, we expect it not to).
+Because `ack` remains *high* in this case (remember the need for the inverters!),
+`q0` will remain asserted.
+This is because the unnamed feedback on C(n) is *low*, which potentially brings its output low as a result.
+C(n+1) will have A, B = 0, 1 for inputs, which latches `q0` high!
+It will not reset until the endpoint brings `ack` low, thus completing the consumption of the input.
+
+Like I said, this is subtle.  But, it's very clever!
 

@@ -59,3 +59,14 @@ It will not reset until the endpoint brings `ack` low, thus completing the consu
 
 Like I said, this is subtle.  But, it's very clever!
 
+## muller\_c signals
+
+|Signal|Direction|Purpose|
+|`a`|In|First of two inputs.|
+|`b`|In|Second of two inputs.|
+|`r`|In|Reset.  If asserted, regardless of the status of `a` or `b`, the output is driven low.|
+|`x`|Out|1 if both `a` and `b` are 1, 0 if both `a` and `b` are 0; otherwise, retains last set value.|
+
+The `r` input exists mainly to benefit synthesis and simulation tools.
+On anything other than an FPGA, it's not likely that you'd ever need this signal.
+

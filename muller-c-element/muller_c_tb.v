@@ -4,7 +4,7 @@ module muller_c_tb();
 	reg a, b;
 	wire x;
 
-	muller_c mc(.a(a), .b(b), .x(x));
+	muller_c mc(.a(a), .b(b), .x(x), .r(0));
 
 	initial begin
 		$dumpfile("wtf.vcd");

@@ -62,6 +62,7 @@ Like I said, this is subtle.  But, it's very clever!
 ## muller\_c signals
 
 |Signal|Direction|Purpose|
+|:-:|:-:|:--|
 |`a`|In|First of two inputs.|
 |`b`|In|Second of two inputs.|
 |`r`|In|Reset.  If asserted, regardless of the status of `a` or `b`, the output is driven low.|

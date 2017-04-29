@@ -8,6 +8,7 @@ module master(
 	input		reset_i,
 
 	input		dreq_i,
+	output		dack_o,
 
 	output	[AW:0]	adr_o,
 	output		cyc_o,
@@ -26,6 +27,8 @@ module master(
 	reg	[AW:0]	rd_adr, wr_adr;
 	reg		rd_cyc, wr_cyc;
 
+	reg		dack_o;
+
 	assign		cyc_o = rd_cyc | wr_cyc;
 
 	always @(posedge clk_i) begin
@@ -34,6 +37,7 @@ module master(
 		we_o <= 0;
 		rd_cyc <= rd_cyc;
 		wr_cyc <= wr_cyc;
+		dack_o <= 0;
 
 		if(reset_i) begin
 			rd_adr <= `IPL_READ_ADDR;
@@ -52,6 +56,7 @@ module master(
 				adr_o <= rd_adr;
 				stb_o <= 1;
 				rd_cyc <= 1;
+				dack_o <= 1;
 			end
 			if(rd_cyc && ack_i) begin
 				rd_cyc <= 0;
@@ -66,6 +71,7 @@ module master(
 					adr_o <= rd_adr;
 					stb_o <= 1;
 					rd_cyc <= 1;
+					dack_o <= 1;
 				end
 			end
 		end

@@ -44,6 +44,9 @@ module master(
 
 		else begin
 			// WARNING: THIS DOES NOT SUPPORT SINGLE-CYCLE TRANSACTIONS!!!!!
+			// Experience shows that it works in practice on my simulator,
+			// but I offer NO PROMISE that it'll work for you.  You'll need
+			// to explore/experiment on your own.
 
 			if(dreq_i && ~cyc_o) begin
 				adr_o <= rd_adr;
@@ -52,6 +55,18 @@ module master(
 			end
 			if(rd_cyc && ack_i) begin
 				rd_cyc <= 0;
+				wr_cyc <= 1;
+				adr_o <= wr_adr;
+				stb_o <= 1;
+				we_o <= 1;
+			end
+			if(wr_cyc && ack_i) begin
+				wr_cyc <= 0;
+				if(dreq_i) begin
+					adr_o <= rd_adr;
+					stb_o <= 1;
+					rd_cyc <= 1;
+				end
 			end
 		end
 	end

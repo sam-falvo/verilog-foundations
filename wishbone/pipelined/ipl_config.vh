@@ -1,2 +1,2 @@
 `define IPL_READ_ADDR	(16'hFF00)
-`define IPL_WRITE_ADDR	(16'h0000)
+`define IPL_WRITE_ADDR	(16'hAA00)

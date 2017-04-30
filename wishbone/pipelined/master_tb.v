@@ -179,8 +179,8 @@ module master_tb();
 		assert_adr(`IPL_READ_ADDR);
 		assert_dack(1);
 
-		dreq_i <= 0;
 		wait(~clk_i); wait(clk_i); #1;
+		dreq_i <= 0;
 		assert_cyc(1);
 		assert_stb(1);
 		assert_we(1);
